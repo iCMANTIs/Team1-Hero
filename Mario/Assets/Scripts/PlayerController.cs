@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -100,19 +100,25 @@ public class PlayerController : MonoBehaviour
     void SwitchAnimation()
     {
         myAnim.SetBool("Idle", false);
-        if(myAnim.GetBool("Jump"))
+
+        if (myAnim.GetBool("Jump"))
         {
-            if(myRigbody.velocity.y < 0.0f)
+            if (myRigbody.velocity.y < 0.0f)
             {
                 myAnim.SetBool("Jump", false);
                 myAnim.SetBool("Fall", true);
-                if(myAnim.GetBool("Hurt"))
+                if (myAnim.GetBool("Hurt"))
                 {
                     myAnim.SetBool("Hurt", true);
                 }
             }
         }
-        else if(isHurt)
+        else if (myRigbody.velocity.y < 0 && !isGround) // 非跳跃状态下的下落
+        {
+            myAnim.SetBool("Idle", false);   
+            myAnim.SetBool("Fall", true);
+        }
+        else if (isHurt)
         {
             hurtAudio.Play();
             myAnim.SetBool("Hurt", true);
@@ -123,20 +129,20 @@ public class PlayerController : MonoBehaviour
                 isHurt = false;
             }
         }
-        else if(isGround)
+        else if (isGround)
         {
             myAnim.SetBool("Fall", false);
             myAnim.SetBool("Idle", true);
         }
-        if(myAnim.GetBool("DoubleJump"))
+        if (myAnim.GetBool("DoubleJump"))
         {
-            if(myRigbody.velocity.y < 0.6f)
+            if (myRigbody.velocity.y < 0.6f)
             {
                 myAnim.SetBool("DoubleJump", false);
                 myAnim.SetBool("DoubleFall", true);
             }
         }
-        else if(isGround)
+        else if (isGround)
         {
             myAnim.SetBool("DoubleFall", false);
             myAnim.SetBool("Idle", true);

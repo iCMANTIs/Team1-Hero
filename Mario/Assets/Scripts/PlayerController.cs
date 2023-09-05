@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
                 if (myAnim.GetBool("Hurt"))
                 {
                     myAnim.SetBool("Hurt", true);
+                    myAnim.SetBool("Fall", false);
                 }
             }
         }

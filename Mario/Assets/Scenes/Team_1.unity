@@ -1525,6 +1525,8 @@ MonoBehaviour:
   target: {fileID: 966804463}
   speed: 0
   followDelay: 1
+  upperBound: 10
+  lowerBound: -10
 --- !u!1 &1361698916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,6 +1663,8 @@ MonoBehaviour:
   target: {fileID: 966804463}
   speed: 0.99
   followDelay: 0.1
+  upperBound: 15
+  lowerBound: 0.15
 --- !u!1 &1510694217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,7 +2117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 842702661779434666, guid: bf5f7dc2042165c4b8db133c8c0f8f44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.26
+      value: 6.74
       objectReference: {fileID: 0}
     - target: {fileID: 842702661779434666, guid: bf5f7dc2042165c4b8db133c8c0f8f44, type: 3}
       propertyPath: m_LocalPosition.z

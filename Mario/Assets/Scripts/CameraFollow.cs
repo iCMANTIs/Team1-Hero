@@ -6,7 +6,9 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public float speed;
-    public float followDelay = 1.0f; // 延迟时间，可以根据需要调整
+    public float followDelay = 1.0f;
+    public float upperBound = 15.0f; 
+    public float lowerBound = 0f; 
 
     private bool shouldFollow = false;
     private float delayTimer = 0f;
@@ -15,30 +17,32 @@ public class CameraFollow : MonoBehaviour
     {
         if (transform.position != target.position)
         {
-            // 如果玩家移动了并且不在跟随状态
+
             if (!shouldFollow)
             {
-                delayTimer += Time.deltaTime; // 开始计时
+                delayTimer += Time.deltaTime;
 
-                // 如果计时器超过了指定的延迟时间
                 if (delayTimer >= followDelay)
                 {
-                    shouldFollow = true; 
-                    delayTimer = 0f; // 
+                    shouldFollow = true;
+                    delayTimer = 0f;
                 }
             }
 
-            
             if (shouldFollow)
             {
-                Vector3 targetPos = target.position;
+                Vector3 targetPos = new Vector3(transform.position.x, target.position.y, transform.position.z);
+
+                
+                targetPos.y = Mathf.Clamp(targetPos.y, lowerBound, upperBound);
+
                 transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             }
         }
         else
         {
-            shouldFollow = false; // 如果相机到达目标位置，停止跟随
-            delayTimer = 0f; // 重置计时器
+            shouldFollow = false;
+            delayTimer = 0f;
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,12 +15,31 @@ public class Player : MonoBehaviour
     int score;
     float scoreTime;
     [SerializeField] GameObject replayButton;
-    // Start is called before the first frame update
+    [SerializeField] Text fallText; 
+    [SerializeField] float fallDistanceThreshold = 8f; 
+    [SerializeField] float textDisplayTime = 3f; 
+    private Vector3 lastPosition; 
+    private List<string> messages = new List<string> 
+{
+    "Oof, you lost a lot of progress. That’s a deep frustration, a real punch in the gut.",
+    "Oh no, it happened again. Keep on trying, don’t let it get to you.",
+    "The pain I feel now is the happiness I had before.",
+    "Whenever I climb, I am followed by a dog called Ego.",
+    "The soul would have no rainbow had the eyes no tears.",
+    "To live is to suffer. To survive is to find meaning in the suffering.",
+    "Of all sad words of tongue or pen, the saddest are these, 'It might have been'.",
+    "There are no regrets in life, just lessons.",
+    "Your failure here is a metaphor. To learn for what, please resume climbing.",
+    "There I was again tonight, forcing laughter, faking smiles.",
+};
+
     void Start()
     {
-        Hp = 10;
+        Hp = 9999;
         score = 0;
         scoreTime = 0f;
+        lastPosition = transform.position;
+
     }
 
     // Update is called once per frame
@@ -37,6 +56,7 @@ public class Player : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
         }
         UpdateScore();
+        CheckFallDistance();
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -104,7 +124,7 @@ public class Player : MonoBehaviour
         {
             score++;
             scoreTime = 0f;
-            scoreText.text = "地下" + score.ToString() + "层";
+            scoreText.text = "underground" + score.ToString() + "Level";
         }
     }
     void Die()
@@ -117,4 +137,28 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("SampleScene");
     }
-}
+    void CheckFallDistance()
+    {
+        float distanceFell = lastPosition.y - transform.position.y;
+        if (distanceFell >= fallDistanceThreshold)
+        {
+            ShowRandomText();
+        }
+        lastPosition = transform.position;
+    }
+
+    void ShowRandomText()
+    {
+        int randomIndex = Random.Range(0, messages.Count);
+        fallText.text = messages[randomIndex];
+        fallText.gameObject.SetActive(true);
+        StartCoroutine(HideTextAfterDelay(textDisplayTime));
+    }
+
+    IEnumerator HideTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        fallText.gameObject.SetActive(false);
+    }
+
+}*/

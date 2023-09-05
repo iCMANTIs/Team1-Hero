@@ -29,7 +29,7 @@ public class Menu : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("level00");//去到指定的场景
+        SceneManager.LoadScene("level00");
     }
 
     public void SetVolume(float value)
